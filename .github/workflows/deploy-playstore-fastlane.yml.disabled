@@ -1,0 +1,77 @@
+name: Deploy to Play Store (Fastlane)
+
+# This is an alternative workflow using Fastlane
+# To use this instead of the basic workflow:
+# 1. Rename this file to deploy-playstore-fastlane.yml
+# 2. Rename or delete deploy-playstore.yml
+# 3. Follow Fastlane setup instructions in CICD_AUTOMATION.md
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+jobs:
+  deploy:
+    name: Build and Deploy via Fastlane
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          cache: true
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.2'
+          bundler-cache: true
+
+      - name: Get Flutter dependencies
+        run: flutter pub get
+
+      - name: Run tests
+        run: flutter test
+
+      - name: Decode keystore
+        run: |
+          echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 -d > android/app/keystore.jks
+
+      - name: Create key.properties
+        run: |
+          cat > android/key.properties << EOF
+          storePassword=${{ secrets.KEYSTORE_PASSWORD }}
+          keyPassword=${{ secrets.KEY_PASSWORD }}
+          keyAlias=${{ secrets.KEY_ALIAS }}
+          storeFile=keystore.jks
+          EOF
+
+      - name: Create Play Store service account JSON
+        run: |
+          echo '${{ secrets.PLAYSTORE_SERVICE_ACCOUNT_JSON }}' > android/play-store-credentials.json
+
+      - name: Build and deploy with Fastlane
+        run: |
+          cd android
+          bundle install
+          bundle exec fastlane deploy_internal
+        env:
+          GOOGLE_PLAY_KEY_FILE: play-store-credentials.json
+
+      - name: Clean up secrets
+        if: always()
+        run: |
+          rm -f android/app/keystore.jks
+          rm -f android/key.properties
+          rm -f android/play-store-credentials.json
