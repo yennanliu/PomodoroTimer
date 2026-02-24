@@ -1,0 +1,35 @@
+
+### The Prompt
+
+> **Role:** Act as an expert Flutter Developer.
+> **Task:** Create a single-file (`main.dart`) Pomodoro Timer app.
+> **Requirements:**
+> 1. **Framework:** Use Flutter (Dart).
+> 2. **Logic:** >    * A 25-minute countdown timer.
+> * Buttons to Start, Pause, and Reset.
+> * When the timer hits zero, it should reset to 25 minutes automatically (or show a "Finished" state).
+> 
+> 
+> 3. **State Management:** Use a simple `StatefulWidget`. Do not use external libraries like Provider or Riverpod.
+> 4. **Storage:** No backend or local database needed. Keep the timer state in memory only.
+> 5. **UI/UX:** >    * **Simple & Elegant:** Use a clean, minimalist aesthetic (Material 3).
+> * Large, readable digital clock display (MM:SS).
+> * Use a soothing color palette (e.g., Soft Red for work, Light Grey for inactive).
+> * Smooth transitions/animations for the numbers if possible.
+> 
+> 
+> 
+> 
+> **Constraint:** Keep the code concise, well-commented, and contained entirely within `main.dart` so I can run it immediately in a fresh Flutter project.
+
+---
+
+### Why this prompt works for Claude:
+
+* **"Single-file (`main.dart`)":** This prevents the AI from splitting the code into 5 different files, making it much easier for you to just copy, paste, and run.
+* **"StatefulWidget":** This tells Claude to use the built-in Flutter tools rather than suggesting complex "architecture" that you don't need for a simple app.
+* **"Material 3":** This ensures the buttons and fonts look modern and "elegant" by default without you having to write a lot of custom CSS-like styling.
+
+### A Small Tip for Android:
+
+When you run this, Claude might use a standard `Timer.periodic`. This works great, but remember that on Android, if you minimize the app, the system might "pause" the app to save battery. For a *simple* version, this is fine, but it's a good thing to keep in mind!

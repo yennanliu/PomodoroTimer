@@ -1,0 +1,81 @@
+
+## Prompt for Claude
+
+I want you to generate a complete, minimal Flutter Android app called **"PomodoroTimer"**.
+
+### Requirements:
+
+1. **Tech Stack**
+
+   * Use **Dart**
+   * Use **Flutter**
+   * Target: Android only
+   * No backend
+   * No Firebase
+   * No external APIs
+
+2. **Core Functionality**
+
+   * Default Pomodoro: 25 minutes
+   * Short break: 5 minutes
+   * Long break: 15 minutes
+   * Start / Pause / Reset timer
+   * Automatically switch to break after focus session ends
+   * Simple session counter (how many Pomodoros completed)
+
+3. **Data Storage**
+
+   * Save session count locally using:
+
+     * `shared_preferences`
+   * No cloud storage
+   * No database
+   * No authentication
+
+4. **UI Requirements**
+
+   * Minimal design
+   * Clean typography
+   * Centered circular timer
+   * Large countdown text (MM:SS)
+   * 3 buttons only:
+
+     * Start/Pause
+     * Reset
+     * Skip
+   * Soft modern colors
+   * No complex animations
+   * No heavy design
+
+5. **Architecture**
+
+   * Keep everything simple
+   * Single screen app
+   * Clean and readable code
+   * Separate logic from UI (use a simple class for timer logic)
+   * Comment important parts
+
+6. **Extra Rules**
+
+   * Do NOT over-engineer
+   * Do NOT use state management libraries (no Bloc, no Riverpod, no Provider)
+   * Use simple `setState`
+   * Keep dependencies minimal
+   * Code must be beginner-friendly
+
+7. Output Format
+
+   * Provide:
+
+     * pubspec.yaml dependencies section
+     * main.dart full code
+     * Clear instructions to run the app
+   * Ensure code compiles
+
+The design should feel calm, elegant, and distraction-free.
+
+Do not add unnecessary features.
+
+Keep it simple and production-clean.
+
+
